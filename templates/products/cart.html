@@ -1,0 +1,83 @@
+{#{% extends 'index.html' %}#}
+{#{% block title %}#}
+{#	Cart#}
+{#{% endblock %}#}
+{#{% block content %}#}
+{#    {% include 'header.html' %}#}
+{##}
+{#	<div class="cart" style="margin: 2rem">#}
+{#    <h1>Your Cart:-</h1>#}
+{#    	{% for key, product in cart.items %}#}
+{#       {% for p in product %}#}
+{#       	<div class="product">#}
+{#            <img src="{{ p.image }}" alt="product-image" id="product-image">#}
+{#            <div class="details">#}
+{#             <h4 id="p-name">{{ p.name }}</h4>#}
+{#             <p id="p-price">Price-${{ p.price }}</p>#}
+{#            <p id="p-description">{{ p.description }}</p>#}
+{#                <p>Quantity: {{ p.quantity }}</p>#}
+{#                <form action="{% url 'decrease_quantity' %}" method="post">#}
+{#                    {% csrf_token %}#}
+{#                    <button type="submit">-</button>#}
+{#                </form>#}
+{#                <form action="{% url 'increase_quantity' %}" method="post">#}
+{#                    {% csrf_token %}#}
+{#                    <button type="submit">+</button>#}
+{#                </form>#}
+{#                <form action="{% url 'remove' p.id %}" method="post">#}
+{#                    {% csrf_token %}#}
+{#                    <input type="hidden" name="product_id" value="{{ p.id }}">#}
+{#                    <button type="submit">Remove</button>#}
+{#                </form>#}
+{#            </div>#}
+{#        </div>#}
+{#       {% endfor %}#}
+{#         Total Price is  {{ total_price }}#}
+{#    	#}
+{#    {% endfor %}#}
+{#     #}
+{#    #}
+{#     #}
+{#    #}
+{#    </div>#}
+{#	#}
+{#{% endblock %}#}
+{% extends 'index.html' %}
+{% block title %}
+    Cart
+{% endblock %}
+{% block content %}
+    {% include 'header.html' %}
+
+    <div class="cart" style="margin: 2rem">
+        <h1>Your Cart:-</h1>
+        {% for  product in cart.products %}
+            <div class="product">
+                <img src="{{ product.image }}" alt="product-image" id="product-image">
+                <div class="details">
+                    <h4 id="p-name">{{ product.name }}</h4>
+                    <p id="p-price">Price-${{ product.price }}</p>
+                    <p id="p-description">{{ product.description }}</p>
+                    <p>Quantity: {{ product.quantity }}</p>
+                    <form action="{% url 'decrease_quantity' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="product_id" value="{{ product.id }}">
+                        <button type="submit">-</button>
+                    </form>
+                    <form action="{% url 'increase_quantity' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="product_id" value="{{ product.id }}">
+                        <button type="submit">+</button>
+                    </form>
+                    <form action="{% url 'remove_product' product.id %}" method="post">
+                        {% csrf_token %}
+                      <button type="submit">Remove</button>
+                    </form>
+
+                </div>
+            </div>
+        {% endfor %}
+        Total Price is  {{ total_price }}
+    </div>
+
+{% endblock %}

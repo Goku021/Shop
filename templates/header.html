@@ -1,0 +1,12 @@
+{% block content %}
+    <nav>
+	<div class="navbar" style="display: flex; justify-content: space-evenly; background-color: darkcyan; padding: 1rem; border-radius: 25px">
+      <div class="nav-item">
+          <a href="{% url 'cart' %}" style="color: black;">Cart</a>
+      </div>
+         <div class="nav-item">
+          <a href="{% url 'home_page' %}" style="color: black;">All-Products</a>
+      </div>
+    </div>
+    </nav>
+{% endblock %}

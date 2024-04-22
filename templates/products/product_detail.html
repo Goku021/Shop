@@ -1,0 +1,20 @@
+{% extends 'index.html' %}
+{% block title %}
+	{{ product.name|capfirst }}
+{% endblock %}
+{% block content %}
+    {% include 'header.html' %}
+	<div class="product-details">
+            <img src="{{ product.image.url }}" alt="product-image" id="product-image-details">
+            <div class="p-details">
+             <h4 id="p-name">{{ product.name }}</h4>
+             <p id="p-price">Price-${{ product.price }}</p>
+            <p id="p-description">{{ product.description }}</p>
+             <p>This product is created on {{ product.created }}</p>
+             <form action="{% url 'add_cart' product.id%}" method="post">
+                 {% csrf_token %}
+                 <button type="submit" style="cursor:pointer;color: rgba(0,0,255,0.61); text-decoration: none; border: none; padding: 1rem; border-radius: 25px">Add to Cart</button>
+             </form>   
+            </div>
+        </div>
+{% endblock %}
